@@ -1,0 +1,28 @@
+{
+  "name": "api-catalogo",
+  "version": "1.0.0",
+  "description": "apirest del catalogo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "mongoose, nodemon,express, cors"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "connect-multiparty": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-fileupload": "^1.5.1",
+    "mongoose": "^8.12.1",
+    "nodemon": "^3.1.9"
+  },
+  "author": "Mario Camara",
+  "license": "ISC",
+  "devDependencies": {"nodemon": "^3.1.9"},
+  "keywords": [
+    "cors",
+    "express",
+    "nodemon"
+  ]
+}
