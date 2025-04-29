@@ -15,3 +15,5 @@ api.delete("/delpostre/:id", PostreController.delPostre);
 api.patch("/updatepostre/:id", [md_mparty], PostreController.updatePostre);
 
 module.exports = api;
+
+
