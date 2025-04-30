@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
-const Postres= mongoose.Schema({
+const PostreSchema = new mongoose.Schema({
     nombre: String,
     precio: Number,
-    cantidad: String,
+    cantidad: Number,
     ingredientes: String,
-    imagep:String,
+    imagep: String,
     createdAT: {
         type: Date,
         default: Date.now
     }
 });
 
-module.exports = mongoose.model('Postres', Postres);
+module.exports = mongoose.model('Postre', PostreSchema);
