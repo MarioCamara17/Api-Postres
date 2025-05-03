@@ -84,9 +84,22 @@ async function updatePostre(req, res) {
     }
 }
 
+async function loadPostres(req, res) {
+    try {
+        const postres = req.body; // Los postres se envían en el cuerpo de la solicitud
+        await Postre.insertMany(postres); // Inserta los postres en la base de datos
+        res.status(200).send({ msg: "Postres cargados correctamente" });
+    } catch (error) {
+        console.error("Error al cargar los postres:", error);
+        res.status(500).send({ msg: "Error al cargar los postres" });
+    }
+}
+
+
 module.exports = {
     createPostre,
     getPostre,
     delPostre,
-    updatePostre
+    updatePostre,
+    loadPostres,
 };
