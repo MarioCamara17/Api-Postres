@@ -16,6 +16,11 @@ const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(cors());
+
+// ✅ Agrega esta línea:
+const path = require('path');
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.use('/api', postresRoutes);
 
 const uri = `mongodb://${IP_SERVER}:${DB_PORT}/${DB_NAME}`;

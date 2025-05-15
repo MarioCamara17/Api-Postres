@@ -1,9 +1,8 @@
-function getFilePath(file){
-    const filePath = file.path;
-    const fileSplit = filePath.split("\\");
-    return `${fileSplit[0]}/${fileSplit[1]}`
-}
-
+function getFilePath(file) {
+    const filePath = file.path.replace(/\\/g, "/"); // Soporte Windows/Linux
+    return filePath; // Mantén "uploads/archivo.png"
+  }
+  
 module.exports = {
     getFilePath
 }
