@@ -8,14 +8,15 @@ async function createPostre(req, res) {
 
     try {
         if (req.files && req.files.imagep) {
-            const imagePath = imagen.getFilePath(req.files.imagep);
-            postres.imagep = imagePath;
+            const imagePath = imagen.getFilePath(req.files.imagep); // Obtiene la ruta relativa
+            postres.imagep = imagePath; // Guarda la ruta en la base de datos
         }
+
         const datos = await postres.save();
         res.status(200).send(datos);
     } catch (error) {
+        console.error("Error al crear el postre:", error);
         res.status(500).send({ msg: "Error al crear el postre" });
-        console.log(error);
     }
 }
 

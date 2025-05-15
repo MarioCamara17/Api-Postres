@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const Postre = require('../models/Postres.models'); // Modelo de los postres
+const axios = require("axios");
 
 const postres = [
     {
@@ -7,21 +6,21 @@ const postres = [
         precio: 280.00,
         cantidad: 10,
         ingredientes: "mantequilla, azucar, lechera, queso de bola, harina, huevo",
-        imagep:"uploads/pandebola.jpg"
+        imagep: "pandebola.jpg"
     },
     {
         nombre: "Pan de nata",
         precio: 240.00,
         cantidad: 15,
         ingredientes: "mantequilla, azucar, lechera, nata, harina, huevo",
-        imagep: "uploads/pandenata.jpg"
+        imagep: "pandenata.jpg"
     },
     {
         nombre: "Cheesecake",
         precio: 300.00,
         cantidad: 12,
         ingredientes: "mantequilla, azucar, lechera, queso crema, harina, huevo",
-        imagep: "uploads/cheesecake.jpg"
+        imagep: "cheesecake.jpg"
     },
     {
         nombre: "Volteado de piña",
@@ -95,20 +94,33 @@ const postres = [
     },
 ];
 
-// Conexión y guardado
-mongoose.connect('mongodb://127.0.0.1:27017/api-catalogo', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }).then(async () => {
-    const postres = await Postre.find({});
-  
-    for (const postre of postres) {
-      if (!postre.imagep.startsWith("uploads/")) {
-        postre.imagep = `uploads/${postre.imagep}`;
-        await postre.save();
-      }
+// URL del backend
+const BASE_URL = "http://localhost:5000/api/createpostre";
+
+// Función para cargar los postres al backend
+const cargarPostres = async () => {
+    try {
+        for (const postre of postres) {
+            const formData = new FormData();
+            formData.append("nombre", postre.nombre);
+            formData.append("precio", postre.precio);
+            formData.append("cantidad", postre.cantidad);
+            formData.append("ingredientes", postre.ingredientes);
+            formData.append("imagep", postre.imagep); // Aquí puedes ajustar si necesitas subir archivos reales
+
+            const response = await axios.post(BASE_URL, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            console.log(`Postre cargado: ${response.data.nombre}`);
+        }
+        console.log("✅ Todos los postres se cargaron correctamente.");
+    } catch (error) {
+        console.error("❌ Error al cargar los postres:", error.message);
     }
-  
-    console.log("Rutas de imagen actualizadas");
-    mongoose.disconnect();
-  });
+};
+
+// Ejecutar la función
+cargarPostres();
