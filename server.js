@@ -9,6 +9,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('uploads'));
 
+app.use("/uploads", express.static("uploads"));
+
 app.use(cors());
 
 module.exports = app;
