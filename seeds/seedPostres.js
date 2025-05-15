@@ -7,21 +7,21 @@ const postres = [
         precio: 280.00,
         cantidad: 10,
         ingredientes: "mantequilla, azucar, lechera, queso de bola, harina, huevo",
-        imagep: "pandebola.jpg"
+        imagep:"uploads/pandebola.jpg"
     },
     {
         nombre: "Pan de nata",
         precio: 240.00,
         cantidad: 15,
         ingredientes: "mantequilla, azucar, lechera, nata, harina, huevo",
-        imagep: "pandenata.jpg"
+        imagep: "uploads/pandenata.jpg"
     },
     {
         nombre: "Cheesecake",
         precio: 300.00,
         cantidad: 12,
         ingredientes: "mantequilla, azucar, lechera, queso crema, harina, huevo",
-        imagep: "cheesecake.jpg"
+        imagep: "uploads/cheesecake.jpg"
     },
     {
         nombre: "Volteado de piña",
@@ -99,15 +99,16 @@ const postres = [
 mongoose.connect('mongodb://127.0.0.1:27017/api-catalogo', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-}).then(async () => {
-    console.log("📦 Conectado a MongoDB. Insertando postres...");
-
-    // Limpia la colección antes de insertar (opcional)
-    await Postre.deleteMany({});
-
-    await Postre.insertMany(postres);
-    console.log("✅ Datos insertados correctamente");
+  }).then(async () => {
+    const postres = await Postre.find({});
+  
+    for (const postre of postres) {
+      if (!postre.imagep.startsWith("uploads/")) {
+        postre.imagep = `uploads/${postre.imagep}`;
+        await postre.save();
+      }
+    }
+  
+    console.log("Rutas de imagen actualizadas");
     mongoose.disconnect();
-}).catch(err => {
-    console.error("❌ Error al conectar o insertar:", err);
-});
+  });

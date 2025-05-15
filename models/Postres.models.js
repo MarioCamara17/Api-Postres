@@ -5,7 +5,7 @@ const PostreSchema = new mongoose.Schema({
     precio: Number,
     cantidad: Number,
     ingredientes: String,
-    imagep: String,
+    imagep: String, 
     createdAT: {
         type: Date,
         default: Date.now
