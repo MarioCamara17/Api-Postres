@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const postresRoutes = require('./routes/Postres.routes');
+const usuarioRoutes = require('./routes/usuario.routes'); // <-- Importa las rutas de usuario
 const {
     DB_USER,
     DB_PASSWORD,
@@ -17,11 +18,11 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(cors());
 
-
 const path = require('path');
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use('/api', postresRoutes);
+app.use('/api/usuario', usuarioRoutes); // <-- Usa las rutas de usuario
 
 const uri = `mongodb://${IP_SERVER}:${DB_PORT}/${DB_NAME}`;
 
